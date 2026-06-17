@@ -1,0 +1,17 @@
+{
+  "model_type":"XGBoost",
+  "best_params":{
+    "learning_rate":0.05,
+    "max_depth":6,
+    "n_estimators":200,
+    "reg_alpha":0.1,
+    "subsample":0.8
+  },
+  "cv_roc_auc":0.7918,
+  "test_roc_auc":0.8191,
+  "test_f1":0.6566,
+  "test_recall":0.7036,
+  "test_precision":0.6155,
+  "mlflow_run_id":"07b4901960394261b9ddb2b9dd39b5c8",
+  "mlflow_experiment":"drug-toxicity-classification"
+}

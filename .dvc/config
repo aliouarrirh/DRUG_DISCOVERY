@@ -1,0 +1,4 @@
+[core]
+    remote = dags_hub_data_store
+['remote "dags_hub_data_store"']
+    url = https://dagshub.com/aouarrirh/pfm_ml_datastore.dvc
