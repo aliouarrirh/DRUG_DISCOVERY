@@ -1,9 +1,12 @@
-pandas 
-numpy 
+pandas
+numpy
 scikit-learn
-mlflow 
+mlflow
 fastapi
-xgboost 
-shap 
+uvicorn
+python-multipart
+xgboost
+shap
 imbalanced-learn
 dvc
+rdkit

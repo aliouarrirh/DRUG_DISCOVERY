@@ -52,14 +52,14 @@ def featurize(smiles, imputer, var_thresh, scaler):
         raise ValueError(f"Invalid SMILES: {smiles}")
 
     gen = rdFingerprintGenerator.GetMorganGenerator(radius=MORGAN_RADIUS, fpSize=MORGAN_BITS)
-    morgan = np.array(list(gen.GetFingerprint(mol)), dtype=np.float32)
+    morgan = np.array(list(gen.GetFingerprint(mol)), dtype=np.float32).reshape(1, -1)
+    morgan = var_thresh.transform(morgan).astype(np.float32)
 
     desc = np.array([[fn(mol) for _, fn in DESCRIPTOR_FNS]], dtype=np.float64)
     desc = imputer.transform(desc)
-    desc = var_thresh.transform(desc)
     desc = scaler.transform(desc).astype(np.float32)
 
-    return np.hstack([morgan, desc[0]]).reshape(1, -1)
+    return np.hstack([morgan, desc]).reshape(1, -1)
 
 
 @click.command()
