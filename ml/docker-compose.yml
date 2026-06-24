@@ -78,7 +78,7 @@ services:
     build: .
     container_name: toxicity_api
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     environment:
       MLFLOW_TRACKING_URI: http://mlflow-proxy:5001
       MLFLOW_S3_ENDPOINT_URL: http://minio:9000

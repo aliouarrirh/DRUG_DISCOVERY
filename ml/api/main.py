@@ -90,7 +90,6 @@ class PredictRequest(BaseModel):
 class PredictResponse(BaseModel):
     smiles: str
     prediction: str
-    probability: float
 
 
 class BatchRequest(BaseModel):
@@ -115,9 +114,9 @@ def featurize(smiles: str) -> np.ndarray:
 
 def predict_one(smiles: str) -> PredictResponse:
     X = featurize(smiles)
-    prob = float(state["model"].predict_proba(X)[0, 1])
-    label = "TOXIC" if prob >= 0.5 else "NON-TOXIC"
-    return PredictResponse(smiles=smiles, prediction=label, probability=round(prob, 4))
+    label_int = int(state["model"].predict(X)[0])
+    label = "TOXIC" if label_int == 1 else "NON-TOXIC"
+    return PredictResponse(smiles=smiles, prediction=label)
 
 
 @app.get("/health")
