@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --lab-bg: #050a0f;
+  --lab-surface: #0a1628;
+  --lab-border: #0e2a4a;
+  --lab-cyan: #00d4ff;
+  --lab-green: #00ff88;
+  --lab-red: #ff2244;
+  --lab-text: #e0f4ff;
+  --lab-muted: #4a7a9b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--lab-bg);
+  color: var(--lab-text);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.grid-overlay {
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.glass {
+  background: rgba(10, 22, 40, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 212, 255, 0.12);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.15), 0 0 80px rgba(0, 212, 255, 0.05);
+}
+
+.glow-green {
+  box-shadow: 0 0 40px rgba(0, 255, 136, 0.25), 0 0 80px rgba(0, 255, 136, 0.1);
+}
+
+.glow-red {
+  box-shadow: 0 0 40px rgba(255, 34, 68, 0.25), 0 0 80px rgba(255, 34, 68, 0.1);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--lab-cyan), transparent);
+  animation: scan 1.5s linear infinite;
+}
+
+@keyframes scan {
+  0% { top: 0%; opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* RDKit SVG dark theme override */
+.molecule-svg svg {
+  width: 100%;
+  height: 100%;
+}
+.molecule-svg svg path,
+.molecule-svg svg line,
+.molecule-svg svg polyline {
+  stroke: #00d4ff !important;
+}
+.molecule-svg svg text {
+  fill: #e0f4ff !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+.molecule-svg svg rect,
+.molecule-svg svg ellipse,
+.molecule-svg svg circle {
+  fill: transparent !important;
+}
