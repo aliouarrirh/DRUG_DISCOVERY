@@ -90,7 +90,7 @@ target/
 reports/figures/
 
 # Modèles entraînés (tracker avec DVC)
-models/*.pkl
+# models/*.pkl  ← décommenté pour permettre le déploiement cloud
 models/*.pkl.*
 
 # Data externe (tracker avec DVC)

@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: toxiscan-api
+    runtime: docker
+    dockerfilePath: ./ml/Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: DATA_DIR
+        value: data/processed
+      - key: MODEL_DIR
+        value: models

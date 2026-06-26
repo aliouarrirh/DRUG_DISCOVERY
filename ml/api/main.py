@@ -1,23 +1,20 @@
 import os
 import joblib
 import numpy as np
-import mlflow
-import mlflow.sklearn
-import mlflow.xgboost
-import mlflow.pyfunc
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import List
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from rdkit import Chem
 from rdkit.Chem import Descriptors, rdFingerprintGenerator
 
 MORGAN_BITS = 2048
 MORGAN_RADIUS = 2
-MODEL_URI = "models:/drug-toxicity-xgboost@champion"
 DATA_DIR = Path(os.getenv("DATA_DIR", "data/processed"))
+MODEL_DIR = Path(os.getenv("MODEL_DIR", "models"))
 
 DESCRIPTOR_FNS = [
     ("MolWt", Descriptors.MolWt),
@@ -57,30 +54,22 @@ state = {}
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    tracking_uri = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
-    mlflow.set_tracking_uri(tracking_uri)
-
-    client = mlflow.tracking.MlflowClient()
-    version_info = client.get_model_version_by_alias("drug-toxicity-xgboost", "champion")
-    state["model_version"] = version_info.version
-
-    pyfunc_model = mlflow.pyfunc.load_model(MODEL_URI)
-    inner = pyfunc_model._model_impl
-    if hasattr(inner, "xgb_model"):
-        state["model"] = inner.xgb_model
-    elif hasattr(inner, "sklearn_model"):
-        state["model"] = inner.sklearn_model
-    else:
-        state["model"] = pyfunc_model
+    state["model"] = joblib.load(MODEL_DIR / "best_model.pkl")
     state["imputer"] = joblib.load(DATA_DIR / "descriptor_imputer.pkl")
     state["var_thresh"] = joblib.load(DATA_DIR / "variance_threshold.pkl")
     state["scaler"] = joblib.load(DATA_DIR / "descriptor_scaler.pkl")
-
     yield
     state.clear()
 
 
 app = FastAPI(title="Drug Toxicity API", version="1.0.0", lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class PredictRequest(BaseModel):
@@ -121,7 +110,7 @@ def predict_one(smiles: str) -> PredictResponse:
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "model_version": state.get("model_version", "unknown")}
+    return {"status": "ok", "model_version": "1.0.0"}
 
 
 @app.post("/predict", response_model=PredictResponse)

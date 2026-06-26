@@ -1,3 +1,7 @@
 /raw
-/processed
 /interim
+/processed/X_train.npy
+/processed/X_test.npy
+/processed/y_train.npy
+/processed/y_test.npy
+/processed/feature_names.csv
