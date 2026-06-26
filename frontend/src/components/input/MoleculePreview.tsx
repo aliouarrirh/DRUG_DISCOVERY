@@ -12,7 +12,7 @@ export function MoleculePreview({ svg, valid, smiles, rdkitReady }: MoleculePrev
   const isEmpty = !smiles.trim()
 
   return (
-    <GlassPanel className="h-48 flex items-center justify-center overflow-hidden relative">
+    <GlassPanel className="h-40 sm:h-48 flex items-center justify-center overflow-hidden relative">
       <AnimatePresence mode="wait">
         {isEmpty ? (
           <motion.div
@@ -45,7 +45,7 @@ export function MoleculePreview({ svg, valid, smiles, rdkitReady }: MoleculePrev
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
             transition={{ duration: 0.3 }}
-            className="molecule-svg w-full h-full p-3"
+            className="molecule-svg w-full h-full p-2 sm:p-3"
             dangerouslySetInnerHTML={{ __html: svg }}
           />
         ) : (

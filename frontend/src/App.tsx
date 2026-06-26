@@ -73,7 +73,7 @@ export default function App() {
       <MolecularBackground />
       <HealthIndicator />
 
-      <div className="relative z-10 max-w-3xl mx-auto px-4 pb-20">
+      <div className="relative z-10 max-w-3xl mx-auto px-3 sm:px-4 pb-10 md:pb-20">
         <HeroHeader />
 
         {/* Mode Toggle */}
@@ -98,7 +98,7 @@ export default function App() {
         {/* Single Mode */}
         {mode === 'single' && (
           <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <SmilesInput
                 value={smiles}
                 onChange={(v) => { setSmiles(v); setResult(null); setError(null) }}

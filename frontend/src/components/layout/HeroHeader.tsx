@@ -6,7 +6,7 @@ export function HeroHeader() {
       initial={{ opacity: 0, y: -30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
-      className="text-center pt-16 pb-10"
+      className="text-center pt-10 pb-6 md:pt-16 md:pb-10"
     >
       <motion.p
         initial={{ opacity: 0 }}
@@ -17,7 +17,7 @@ export function HeroHeader() {
         ⬡ Drug Toxicity Analysis System ⬡
       </motion.p>
 
-      <h1 className="font-display text-6xl md:text-7xl font-bold text-lab-text text-glow-cyan mb-3 tracking-tight">
+      <h1 className="font-display text-5xl md:text-7xl font-bold text-lab-text text-glow-cyan mb-3 tracking-tight">
         Toxi<span className="text-lab-cyan">Scan</span>
       </h1>
 
@@ -25,7 +25,7 @@ export function HeroHeader() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="text-lab-muted font-body text-lg"
+        className="text-lab-muted font-body text-sm md:text-lg px-4"
       >
         AI-powered molecular safety screening via XGBoost + RDKit
       </motion.p>

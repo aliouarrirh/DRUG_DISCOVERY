@@ -16,7 +16,7 @@ export function BatchResultsTable({ results }: BatchResultsTableProps) {
   const safeCount = results.length - toxicCount
 
   return (
-    <GlassPanel className="p-5 mt-4">
+    <GlassPanel className="p-4 sm:p-5 mt-4">
       {/* Summary bar */}
       <div className="mb-4">
         <div className="flex justify-between font-mono text-xs text-lab-muted mb-2">
@@ -24,8 +24,7 @@ export function BatchResultsTable({ results }: BatchResultsTableProps) {
             <span className="text-lab-red">{toxicCount} toxic</span>
             {' / '}
             <span className="text-lab-green">{safeCount} safe</span>
-            {' out of '}
-            {results.length}
+            <span className="hidden sm:inline"> out of {results.length}</span>
           </span>
           <span>{Math.round((safeCount / results.length) * 100)}% safe</span>
         </div>
@@ -39,8 +38,37 @@ export function BatchResultsTable({ results }: BatchResultsTableProps) {
         </div>
       </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto">
+      {/* Cards on mobile, table on sm+ */}
+      <div className="sm:hidden space-y-2">
+        {sorted.map((r, i) => (
+          <motion.div
+            key={r.smiles + i}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.04, duration: 0.25 }}
+            className="flex items-center justify-between bg-lab-bg/40 rounded-lg px-3 py-2.5 gap-2"
+          >
+            <span className="font-mono text-xs text-lab-muted/50 shrink-0">{i + 1}</span>
+            <span className="font-mono text-xs text-lab-text truncate flex-1 min-w-0" title={r.smiles}>
+              {r.smiles}
+            </span>
+            <span
+              className={`inline-flex items-center gap-1 font-mono text-xs font-semibold
+                px-2 py-0.5 rounded-full border shrink-0
+                ${r.prediction === 'TOXIC'
+                  ? 'text-lab-red border-lab-red/30 bg-lab-red/10'
+                  : 'text-lab-green border-lab-green/30 bg-lab-green/10'
+                }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${r.prediction === 'TOXIC' ? 'bg-lab-red animate-pulse' : 'bg-lab-green'}`} />
+              {r.prediction === 'TOXIC' ? 'TOX' : 'SAFE'}
+            </span>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Table on sm+ */}
+      <div className="hidden sm:block overflow-x-auto">
         <table className="w-full text-left">
           <thead>
             <tr className="border-b border-lab-border">
@@ -60,9 +88,7 @@ export function BatchResultsTable({ results }: BatchResultsTableProps) {
               >
                 <td className="font-mono text-xs text-lab-muted/50 py-2.5 pr-4">{i + 1}</td>
                 <td className="font-mono text-xs text-lab-text py-2.5 pr-4 max-w-xs">
-                  <span className="block truncate" title={r.smiles}>
-                    {r.smiles}
-                  </span>
+                  <span className="block truncate" title={r.smiles}>{r.smiles}</span>
                 </td>
                 <td className="py-2.5">
                   <span
@@ -73,11 +99,7 @@ export function BatchResultsTable({ results }: BatchResultsTableProps) {
                         : 'text-lab-green border-lab-green/30 bg-lab-green/10'
                       }`}
                   >
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full ${
-                        r.prediction === 'TOXIC' ? 'bg-lab-red animate-pulse' : 'bg-lab-green'
-                      }`}
-                    />
+                    <span className={`w-1.5 h-1.5 rounded-full ${r.prediction === 'TOXIC' ? 'bg-lab-red animate-pulse' : 'bg-lab-green'}`} />
                     {r.prediction}
                   </span>
                 </td>

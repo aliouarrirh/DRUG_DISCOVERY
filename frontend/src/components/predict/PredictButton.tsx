@@ -16,9 +16,9 @@ export function PredictButton({ onClick, status, disabled }: PredictButtonProps)
       onClick={onClick}
       disabled={disabled || isLoading}
       whileHover={!isLoading ? { scale: 1.02 } : {}}
-      whileTap={!isLoading ? { scale: 0.98 } : {}}
-      className={`relative w-full py-4 rounded-xl font-display font-semibold text-sm tracking-widest uppercase
-        overflow-hidden transition-all duration-300 disabled:cursor-not-allowed
+      whileTap={!isLoading ? { scale: 0.97 } : {}}
+      className={`relative w-full py-4 sm:py-4 rounded-xl font-display font-semibold text-sm tracking-widest uppercase
+        overflow-hidden transition-all duration-300 disabled:cursor-not-allowed touch-manipulation
         ${isLoading
           ? 'bg-lab-surface border border-lab-cyan/30 text-lab-cyan'
           : 'bg-gradient-to-r from-cyan-900 via-lab-cyan/20 to-cyan-900 border border-lab-cyan/40 text-lab-cyan hover:border-lab-cyan/70 hover:glow-cyan'

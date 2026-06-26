@@ -19,7 +19,7 @@ export function ResultCard({ result, error }: ResultCardProps) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
         >
-          <GlassPanel className="p-5 border-lab-red/30">
+          <GlassPanel className="p-4 border-lab-red/30">
             <p className="font-mono text-sm text-lab-red">⚠ {error}</p>
           </GlassPanel>
         </motion.div>
@@ -33,9 +33,8 @@ export function ResultCard({ result, error }: ResultCardProps) {
         >
           <GlassPanel
             glow={isToxic ? 'red' : 'green'}
-            className="p-6 relative overflow-hidden"
+            className="p-5 sm:p-6 relative overflow-hidden"
           >
-            {/* Pulsing ring */}
             <motion.div
               animate={{ scale: [1, 1.6, 1], opacity: [0.5, 0, 0.5] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
@@ -48,7 +47,7 @@ export function ResultCard({ result, error }: ResultCardProps) {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-                className="text-5xl mb-3"
+                className="text-4xl sm:text-5xl mb-2 sm:mb-3"
               >
                 {isToxic ? '☠' : '✓'}
               </motion.div>
@@ -57,7 +56,7 @@ export function ResultCard({ result, error }: ResultCardProps) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className={`font-display text-3xl font-bold tracking-wide mb-1
+                className={`font-display text-2xl sm:text-3xl font-bold tracking-wide mb-1
                   ${isToxic ? 'text-lab-red' : 'text-lab-green'}`}
                 style={{
                   textShadow: isToxic
@@ -72,7 +71,7 @@ export function ResultCard({ result, error }: ResultCardProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="font-mono text-xs text-lab-muted mb-4"
+                className="font-mono text-xs text-lab-muted mb-3 sm:mb-4"
               >
                 {isToxic ? 'Compound flagged as hazardous' : 'Compound cleared as safe'}
               </motion.p>
@@ -81,7 +80,7 @@ export function ResultCard({ result, error }: ResultCardProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="bg-lab-bg/60 rounded-lg px-4 py-2 font-mono text-xs text-lab-muted break-all"
+                className="bg-lab-bg/60 rounded-lg px-3 py-2 font-mono text-xs text-lab-muted break-all"
               >
                 {result.smiles}
               </motion.div>

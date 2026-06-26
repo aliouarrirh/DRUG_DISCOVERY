@@ -32,13 +32,18 @@ export function SmilesInput({ value, onChange, onSubmit, disabled, valid }: Smil
         disabled={disabled}
         rows={3}
         placeholder="CC(=O)Oc1ccccc1C(=O)O"
-        className={`w-full bg-lab-surface/80 border rounded-xl px-4 py-3 font-mono text-sm text-lab-text
+        className={`w-full bg-lab-surface/80 border rounded-xl px-3 py-3 font-mono text-sm text-lab-text
           placeholder:text-lab-muted/40 outline-none resize-none transition-all duration-200
           disabled:opacity-50 ${borderColor}`}
       />
       <div className="flex justify-between items-center mt-1">
         <span className="font-mono text-xs text-lab-muted/60">
-          {!valid ? '⚠ Invalid SMILES' : 'Ctrl+Enter to analyze'}
+          {!valid ? '⚠ Invalid SMILES' : (
+            <>
+              <span className="hidden sm:inline">Ctrl+Enter to analyze</span>
+              <span className="sm:hidden">Tap Analyze to run</span>
+            </>
+          )}
         </span>
         <span className="font-mono text-xs text-lab-muted/40">{value.length}</span>
       </div>
